@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Security Alert - Connection Terminated</title>
+    <style>
+        body {
+            background-color: #0d1117;
+            color: #58a6ff;
+            font-family: monospace;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            border: 2px solid #f85149;
+            background-color: #161b22;
+            padding: 30px;
+            border-radius: 8px;
+            max-width: 600px;
+            box-shadow: 0 0 20px rgba(248, 81, 73, 0.4);
+        }
+        h1 { color: #f85149; margin-top: 0; }
+        .data-box { background: #0d1117; padding: 15px; border-radius: 5px; color: #7ee787; }
+        .warning { color: #e3b341; margin-top: 20px; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>[ SYSTEM ALERT: FRAUD DETECTION ]</h1>
+        <p>Unauthorized activity detected. This connection has been intercepted and logged by Cybercrime International Trace Protocol.</p>
+        
+        <div class="data-box">
+            <p>> TARGET IP: <span id="ip">Fetching...</span></p>
+            <p>> LOCATION: <span id="location">Fetching...</span></p>
+            <p>> PROVIDER: <span id="isp">Fetching...</span></p>
+            <p>> DEVICE: <span id="device">Fetching...</span></p>
+        </div>
+
+        <p class="warning">ATTENTION: All communication logs and network identifiers have been compiled into an incident dossier for local and international authorities.</p>
+    </div>
+
+    <script>
+        // Cattura l'IP e la posizione dell'utente in automatico tramite API gratuita
+        fetch('https://ipapi.co/json/')
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('ip').innerText = data.ip || 'LOGGED';
+                document.getElementById('location').innerText = (data.city + ', ' + data.country_name) || 'LOGGED';
+                document.getElementById('isp').innerText = data.org || 'LOGGED';
+                document.getElementById('device').innerText = navigator.platform + ' (' + navigator.userAgent.split(' ')[0] + ')';
+            })
+            .catch(() => {
+                document.getElementById('ip').innerText = 'LOGGED & SAVED';
+            });
+    </script>
+</body>
+</html>
